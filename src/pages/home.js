@@ -1,4 +1,7 @@
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 function stepAnimation() {
     const wrap = document.querySelector('.step_layout');
@@ -98,6 +101,85 @@ function stepAnimation() {
     });
 }
 
+function bennefitAnimation() {
+    const items = document.querySelectorAll('.benefit_item_wrap');
+
+    if (items.length === 0) {
+        console.warn('Benefit items tidak ditemukan.');
+        return;
+    }
+
+    items.forEach((item) => {
+        const left = item.querySelector('.benefit_item_left');
+        const right = item.querySelector('.benefit_item_right');
+        const icon = item.querySelector('.benefit_item_icon .u-svg');
+
+        const tl_text = gsap.timeline({ paused: true });
+
+        tl_text.to([left, right], {
+            opacity: 1,
+            ease: 'power2.out',
+        });
+
+        ScrollTrigger.create({
+            trigger: item,
+            start: 'top 80%',
+            end: 'bottom center',
+            scrub: true,
+            animation: tl_text,
+            // markers: true,
+        });
+
+        if (window.innerHeight < 991) {
+            return;
+        }
+
+        const tl_icon = gsap.timeline({ paused: true });
+
+        tl_icon.to(icon, {
+            opacity: 1,
+            ease: 'back.out(1.7)',
+        });
+
+        ScrollTrigger.create({
+            trigger: icon,
+            start: 'top center',
+            end: 'bottom 40%',
+            scrub: true,
+            animation: tl_icon,
+            // markers: true,
+        });
+    });
+}
+
+function imageStackAnimation() {
+    const items = document.querySelectorAll('.client_image');
+    if (items.length === 0) {
+        console.warn('Client images tidak ditemukan.');
+        return;
+    }
+
+    gsap.set(items, { opacity: 0, scale: 0.8 });
+
+    const tl = gsap.to(items, {
+        opacity: 1,
+        scale: 1,
+        ease: 'power2.out',
+        stagger: 0.1,
+    });
+
+    ScrollTrigger.create({
+        trigger: ".client_image",
+        start: 'top 80%',
+        end: 'bottom 20%',
+        once: true,
+        animation: tl,
+        markers: true,
+    });
+}
+
 export default function initHomePage() {
     stepAnimation();
+    bennefitAnimation();
+    imageStackAnimation();
 }
