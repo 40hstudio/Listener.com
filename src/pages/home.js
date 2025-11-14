@@ -174,7 +174,7 @@ function imageStackAnimation() {
         end: 'bottom 20%',
         once: true,
         animation: tl,
-        markers: true,
+        // markers: true,
     });
 }
 
