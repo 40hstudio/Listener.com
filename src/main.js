@@ -1,11 +1,7 @@
-import gsap from "gsap";
+import initHomePage from "./pages/home";
 
-console.log("🚀 Webflow Custom Code Loaded");
+function initAnimation() {
+	initHomePage()
+}
 
-// Your GSAP animations and custom code here
-gsap.from([".hero-title", ".hero-title + p"], {
-	opacity: 0,
-	y: 50,
-	duration: 1,
-	ease: "power3.out",
-});
+document.addEventListener('DOMContentLoaded', initAnimation);
