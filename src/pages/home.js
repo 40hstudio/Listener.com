@@ -178,8 +178,36 @@ function imageStackAnimation() {
     });
 }
 
+function countAnimation() {
+    const items = document.querySelectorAll('[data-scroll-animation="count"]');
+
+    items.forEach(element => {
+
+        const targetCount = parseInt(element.dataset.count, 10);
+
+        let counter = { value: 0 };
+
+        ScrollTrigger.create({
+            trigger: element,
+            start: "top 90%",
+            onEnter: () => {
+                gsap.to(counter, {
+                    value: targetCount,
+                    duration: 2,
+                    ease: "power1.out",
+                    onUpdate: () => {
+                        element.textContent = Math.round(counter.value);
+                    },
+                });
+            },
+            once: true,
+        });
+    });
+}
+
 export default function initHomePage() {
     stepAnimation();
     bennefitAnimation();
     imageStackAnimation();
+    countAnimation();
 }
