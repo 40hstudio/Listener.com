@@ -281,5 +281,5 @@ export default function initHomePage() {
     bennefitAnimation();
     imageStackAnimation();
     countAnimation();
-    followingCursor();
+    // followingCursor();
 }
