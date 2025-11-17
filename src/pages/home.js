@@ -9,15 +9,15 @@ function stepAnimation() {
     const stepContents = [
         {
             title: "Plan Live Shows Where Demand Already Exists",
-            desc: "Use Listener.com's audience geography and Eventbrite’s attendee data to see exactly where your most passionate listeners live. Identify high-demand markets."
+            desc: `Use <a target="_blank" href="http://listener.com/">Listener.com</a>'s audience geography and Eventbrite’s attendee data to see exactly where your most passionate listeners live. Identify high-demand markets.`
         },
         {
             title: "Turn Engaged Listeners Into Real-World Attendees",
-            desc: "Connect listener behavior with Eventbrite ticketing insights to understand what drives in-person engagement. Track which episodes, formats, and regions convert best so you can launch live shows, meetups, and tours that sell out."
+            desc: `Connect listener behavior with Eventbrite ticketing insights to understand what drives in-person engagement. Track which episodes, formats, and regions convert best so you can launch live shows, meetups, and tours that sell out.`
         },
         {
             title: "Show Sponsors the Full Value of Your Audience",
-            desc: "Combine listener analytics with Eventbrite’s revenue and attendance data to create polished, sponsor-ready reports. Demonstrate who listens, who shows up, and how your audience converts — unlocking new revenue opportunities for your show."
+            desc: `Combine listener analytics with Eventbrite’s revenue and attendance data to create polished, sponsor-ready reports. Demonstrate who listens, who shows up, and how your audience converts — unlocking new revenue opportunities for your show.`
         }
     ];
 
