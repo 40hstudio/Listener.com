@@ -9,7 +9,7 @@ function stepAnimation() {
     const stepContents = [
         {
             title: "Plan Live Shows Where Demand Already Exists",
-            desc: `Use <a target="_blank" href="http://listener.com/">Listener.com</a>'s audience geography and Eventbrite’s attendee data to see exactly where your most passionate listeners live. Identify high-demand markets.`
+            desc: `Use Listener.com's audience geography and Eventbrite’s attendee data to see exactly where your most passionate listeners live. Identify high-demand markets, route tours intelligently, and plan live podcast events with confidence.`
         },
         {
             title: "Turn Engaged Listeners Into Real-World Attendees",
@@ -154,7 +154,7 @@ function stepAnimation() {
                 gsap.to(currentActiveImage, {
                     xPercent: 100,
                     opacity: 0,
-                    duration: 0.6,
+                    duration: 1.2,
                     ease: 'power2.inOut'
                 });
             }
