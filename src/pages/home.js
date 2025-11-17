@@ -72,6 +72,73 @@ function stepAnimation() {
 
     startProgress(steps[0], 0);
 
+    // steps.forEach((step, index) => {
+    //     step.addEventListener('click', () => {
+
+    //         if (step.classList.contains('is-active')) {
+    //             return;
+    //         }
+
+    //         const currentActiveStep = wrap.querySelector('.step_item_wrap.is-active');
+    //         const currentActiveImage = wrap.querySelector('.step_image.is-active');
+
+    //         const heading = step.querySelector('.step_heading');
+    //         const description = step.querySelector('.step_desc');
+
+    //         if (currentActiveImage) {
+    //             gsap.to(currentActiveImage, {
+    //                 xPercent: 100,
+    //                 opacity: 0,
+    //                 duration: 0.6,
+    //                 ease: 'power2.inOut'
+    //             });
+    //         }
+
+    //         const newImage = images[index];
+    //         if (newImage) {
+    //             gsap.fromTo(newImage,
+    //                 { xPercent: 100, opacity: 0 },
+    //                 {
+    //                     xPercent: 0,
+    //                     opacity: 1,
+    //                     duration: 0.6,
+    //                     ease: 'power2.inOut'
+    //                 }
+    //             );
+    //         }
+
+    //         if (currentActiveStep) currentActiveStep.classList.remove('is-active');
+    //         if (currentActiveImage) currentActiveImage.classList.remove('is-active');
+
+
+    //         step.classList.add('is-active');
+    //         if (newImage) newImage.classList.add('is-active');
+
+    //         startProgress(step, index);
+
+    //         gsap.to([heading, description], {
+    //             y: -10,
+    //             opacity: 0,
+    //             duration: 0.3,
+    //             ease: 'power2.in',
+    //             onComplete: () => {
+    //                 heading.innerHTML = stepContents[index].title;
+    //                 description.innerHTML = stepContents[index].desc;
+
+    //                 gsap.to([heading, description], {
+    //                     y: 0,
+    //                     opacity: 1,
+    //                     duration: 0.3,
+    //                     ease: 'power2.out'
+    //                 });
+    //             }
+    //         });
+    //     });
+    // });
+
+    const textHeading = document.querySelector('.step_heading');
+    const textDesc = document.querySelector('.step_desc');
+
     steps.forEach((step, index) => {
         step.addEventListener('click', () => {
 
@@ -81,9 +148,7 @@ function stepAnimation() {
 
             const currentActiveStep = wrap.querySelector('.step_item_wrap.is-active');
             const currentActiveImage = wrap.querySelector('.step_image.is-active');
-
-            const heading = step.querySelector('.step_heading');
-            const description = step.querySelector('.step_desc');
+            const newImage = images[index];
 
             if (currentActiveImage) {
                 gsap.to(currentActiveImage, {
@@ -94,38 +159,29 @@ function stepAnimation() {
                 });
             }
 
-            const newImage = images[index];
             if (newImage) {
                 gsap.fromTo(newImage,
                     { xPercent: 100, opacity: 0 },
-                    {
-                        xPercent: 0,
-                        opacity: 1,
-                        duration: 0.6,
-                        ease: 'power2.inOut'
-                    }
+                    { xPercent: 0, opacity: 1, duration: 0.6, ease: 'power2.inOut' }
                 );
             }
 
             if (currentActiveStep) currentActiveStep.classList.remove('is-active');
             if (currentActiveImage) currentActiveImage.classList.remove('is-active');
 
-
             step.classList.add('is-active');
             if (newImage) newImage.classList.add('is-active');
 
-            startProgress(step, index);
-
-            gsap.to([heading, description], {
+            gsap.to([textHeading, textDesc], {
                 y: -10,
                 opacity: 0,
                 duration: 0.3,
                 ease: 'power2.in',
                 onComplete: () => {
-                    heading.innerHTML = stepContents[index].title;
-                    description.innerHTML = stepContents[index].desc;
+                    textHeading.innerHTML = stepContents[index].title;
+                    textDesc.innerHTML = stepContents[index].desc;
 
-                    gsap.to([heading, description], {
+                    gsap.to([textHeading, textDesc], {
                         y: 0,
                         opacity: 1,
                         duration: 0.3,
@@ -133,6 +189,8 @@ function stepAnimation() {
                     });
                 }
             });
+
+            startProgress(step, index);
         });
     });
 }
