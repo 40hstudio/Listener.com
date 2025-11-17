@@ -214,8 +214,8 @@ function countAnimation() {
             onEnter: () => {
                 gsap.to(counter, {
                     value: targetCount,
-                    duration: 2,
-                    ease: "power1.out",
+                    duration: 1.5,
+                    ease: "expo.out",
                     onUpdate: () => {
                         element.textContent = Math.round(counter.value);
                     },
