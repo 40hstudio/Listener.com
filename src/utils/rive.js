@@ -12,7 +12,7 @@ export function loadRiveAnimation() {
         return;
     }
 
-    const RIVEURL = "https://cdn.prod.website-files.com/691688333ba7c006297bb49f/69174d0ae3e994d5590dbcbe_40h_listener.com.riv";
+    const RIVEURL = "https://cdn.prod.website-files.com/691688333ba7c006297bb49f/69174d0ae3e994d5590dbcbe_5b6428cac679f33c321a9dea63f1e281_40h_listener.com.riv";
 
     const artboard = "cta_glow";
     const sm = "State Machine 1";
@@ -40,18 +40,20 @@ export function loadRiveAnimation() {
                 return;
             }
 
-
-            ScrollTrigger.create({
-                trigger: ".future_card",
-                start: "top 60%",
-                once: true,
-                onEnter: () => {
-                    if (playTrigger) {
-                        playTrigger.fire();
-                    }
-                },
-                // markers: true,
-            });
+            if (playTrigger) {
+                playTrigger.fire();
+            }
+            // ScrollTrigger.create({
+            //     trigger: ".future_card",
+            //     start: "top 60%",
+            //     once: true,
+            //     onEnter: () => {
+            //         if (playTrigger) {
+            //             playTrigger.fire();
+            //         }
+            //     },
+            //     // markers: true,
+            // });
         },
         onLoadError: (err) => {
             console.error("Rive loading error:", err);

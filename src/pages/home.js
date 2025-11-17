@@ -258,14 +258,22 @@ function followingCursor() {
             cursorTag.style.opacity = '0';
         });
 
-        imageElement.addEventListener('mousemove', (e) => {
-            const offsetX = 0;
-            const offsetY = -5;
+        // imageElement.addEventListener('mousemove', (e) => {
+        //     const offsetX = 20;
+        //     const offsetY = -160;
+        //     cursorTag.style.left = `${e.clientX + offsetX}px`;
+        //     cursorTag.style.top = `${e.clientY + offsetY}px`;
+        // });
+        const xTo = gsap.quickTo(cursorTag, "x", { duration: 0.1, ease: "power3" });
+        const yTo = gsap.quickTo(cursorTag, "y", { duration: 0.1, ease: "power3" });
+
+        window.addEventListener('mousemove', (e) => {
+            const offsetX = 10;
+            const offsetY = 10;
             cursorTag.style.left = `${e.clientX + offsetX}px`;
             cursorTag.style.top = `${e.clientY + offsetY}px`;
         });
     });
-
 }
 
 export default function initHomePage() {
