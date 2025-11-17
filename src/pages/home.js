@@ -6,6 +6,21 @@ gsap.registerPlugin(ScrollTrigger);
 function stepAnimation() {
     const wrap = document.querySelector('.step_layout');
 
+    const stepContents = [
+        {
+            title: "Plan Live Shows Where Demand Already Exists",
+            desc: "Use Listener.com's audience geography and Eventbrite’s attendee data to see exactly where your most passionate listeners live. Identify high-demand markets."
+        },
+        {
+            title: "Turn Engaged Listeners Into Real-World Attendees",
+            desc: "Connect listener behavior with Eventbrite ticketing insights to understand what drives in-person engagement. Track which episodes, formats, and regions convert best so you can launch live shows, meetups, and tours that sell out."
+        },
+        {
+            title: "Show Sponsors the Full Value of Your Audience",
+            desc: "Combine listener analytics with Eventbrite’s revenue and attendance data to create polished, sponsor-ready reports. Demonstrate who listens, who shows up, and how your audience converts — unlocking new revenue opportunities for your show."
+        }
+    ];
+
     if (!wrap) {
         console.error('Elemen .step_layout tidak ditemukan.');
         return;
@@ -67,6 +82,9 @@ function stepAnimation() {
             const currentActiveStep = wrap.querySelector('.step_item_wrap.is-active');
             const currentActiveImage = wrap.querySelector('.step_image.is-active');
 
+            const heading = step.querySelector('.step_heading');
+            const description = step.querySelector('.step_item_desc');
+
             if (currentActiveImage) {
                 gsap.to(currentActiveImage, {
                     xPercent: 100,
@@ -97,6 +115,24 @@ function stepAnimation() {
             if (newImage) newImage.classList.add('is-active');
 
             startProgress(step, index);
+
+            gsap.to([heading, description], {
+                y: -10,
+                opacity: 0,
+                duration: 0.3,
+                ease: 'power2.in',
+                onComplete: () => {
+                    heading.innerHTML = stepContents[index].title;
+                    description.innerHTML = stepContents[index].desc;
+
+                    gsap.to([heading, description], {
+                        y: 0,
+                        opacity: 1,
+                        duration: 0.3,
+                        ease: 'power2.out'
+                    });
+                }
+            });
         });
     });
 }
