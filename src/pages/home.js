@@ -79,7 +79,7 @@ function stepAnimation() {
             const newImage = images[index];
             if (newImage) {
                 gsap.fromTo(newImage,
-                    { xPercent: -100, opacity: 0 },
+                    { xPercent: 100, opacity: 0 },
                     {
                         xPercent: 0,
                         opacity: 1,
@@ -166,6 +166,27 @@ function imageStackAnimation() {
         scale: 1,
         ease: 'power2.out',
         stagger: 0.1,
+        onComplete: () => {
+            gsap.set(items, { clearProps: 'all' });
+
+            items.forEach(item => {
+                item.addEventListener('mouseenter', () => {
+                    gsap.to(item, {
+                        scale: 1.2,
+                        duration: 0.3,
+                        ease: 'power2.out',
+                    });
+                });
+
+                item.addEventListener('mouseleave', () => {
+                    gsap.to(item, {
+                        scale: 1,
+                        duration: 0.3,
+                        ease: 'power2.out',
+                    });
+                });
+            });
+        }
     });
 
     ScrollTrigger.create({
@@ -205,9 +226,52 @@ function countAnimation() {
     });
 }
 
+function followingCursor() {
+    const clientImages = document.querySelectorAll('.client_image');
+    const cursorTag = document.querySelector('[data-cursor="following"]');
+
+    if (!cursorTag) {
+        console.error('Elemen #cursor-tag tidak ditemukan. Pastikan sudah ada di HTML Anda.');
+        return;
+    }
+
+    const clientNames = [
+        "Liam Smith",
+        "Ethan Chen",
+        "Ava Davis",
+        "Noah Brown",
+        "Olivia Green",
+        "Mia White",
+        "Sophie Hind"
+    ];
+
+    clientImages.forEach((imageElement, index) => {
+        const clientName = imageElement.querySelector('img').getAttribute('alt').split(' ')[0] + " " + imageElement.querySelector('img').getAttribute('alt').split(' ')[1] || clientNames[index];
+
+
+        imageElement.addEventListener('mouseenter', () => {
+            cursorTag.textContent = clientName;
+            cursorTag.style.opacity = '1';
+        });
+
+        imageElement.addEventListener('mouseleave', () => {
+            cursorTag.style.opacity = '0';
+        });
+
+        imageElement.addEventListener('mousemove', (e) => {
+            const offsetX = 0;
+            const offsetY = -5;
+            cursorTag.style.left = `${e.clientX + offsetX}px`;
+            cursorTag.style.top = `${e.clientY + offsetY}px`;
+        });
+    });
+
+}
+
 export default function initHomePage() {
     stepAnimation();
     bennefitAnimation();
     imageStackAnimation();
     countAnimation();
+    followingCursor();
 }
