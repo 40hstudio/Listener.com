@@ -83,7 +83,7 @@ function stepAnimation() {
             const currentActiveImage = wrap.querySelector('.step_image.is-active');
 
             const heading = step.querySelector('.step_heading');
-            const description = step.querySelector('.step_item_desc');
+            const description = step.querySelector('.step_desc');
 
             if (currentActiveImage) {
                 gsap.to(currentActiveImage, {
