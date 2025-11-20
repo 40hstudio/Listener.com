@@ -2,6 +2,7 @@
 import Lenis from "lenis";
 
 import initHomePage from "./pages/home";
+import initializeSwiper from "./utils/swiper.js";
 
 // --- Utils ---
 import { loadRiveAnimation } from "./utils/rive.js";
@@ -13,6 +14,7 @@ let lenis = new Lenis({
 	normalizeWheel: false,
 	smoothTouch: false,
 });
+
 function raf(time) {
 	lenis.raf(time);
 	requestAnimationFrame(raf);
@@ -56,6 +58,7 @@ function initAnimation() {
 	initHomePage();
 	loadRiveAnimation();
 	footerAnimation();
+	initializeSwiper();
 }
 
 document.addEventListener('DOMContentLoaded', initAnimation);
