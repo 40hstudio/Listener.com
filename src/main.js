@@ -3,6 +3,8 @@ import Lenis from "lenis";
 
 import initHomePage from "./pages/home";
 import initializeSwiper from "./utils/swiper.js";
+import initHomePageV2 from "./pages/home-v2.js";
+import initUnifieldAnimation from "./pages/unifield.js"
 
 // --- Utils ---
 import { loadRiveAnimation } from "./utils/rive.js";
@@ -59,6 +61,8 @@ function initAnimation() {
 	loadRiveAnimation();
 	footerAnimation();
 	initializeSwiper();
+	initHomePageV2();
+	initUnifieldAnimation();
 }
 
 document.addEventListener('DOMContentLoaded', initAnimation);
