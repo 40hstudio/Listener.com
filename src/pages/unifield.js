@@ -1,7 +1,11 @@
 import gsap from "gsap";
 
 function unifieldItems() {
+    const section = document.querySelector('.matrics_wrap');
 
+    if (!section) {
+        return;
+    }
 
     const barDuration = 3;
     const slideSpeed = 0.4;
@@ -97,7 +101,9 @@ function unifieldItems() {
         });
     }
 
-    function startProgressAnimation(index) {
+    function startProgressAnimation(index, startIndex = 0) {
+        if (activeTimeline) activeTimeline.kill();
+
         activeTimeline = gsap.timeline({
             onComplete: () => goToMainStep(index + 1)
         });
@@ -106,6 +112,16 @@ function unifieldItems() {
         const currentAccordions = bottomLists[index].querySelectorAll("details.metrics_item");
 
         currentBars.forEach((bar, i) => {
+            if (i < startIndex) {
+                gsap.set(bar, { width: "100%" });
+            } else {
+                gsap.set(bar, { width: "0%" });
+            }
+        });
+
+        currentBars.forEach((bar, i) => {
+            if (i < startIndex) return;
+
             activeTimeline.call(() => {
                 currentAccordions.forEach(el => el.removeAttribute("open"));
                 if (currentAccordions[i]) {
@@ -126,10 +142,21 @@ function unifieldItems() {
     });
 
     bottomLists.forEach((list, mainIndex) => {
-        list.querySelectorAll("summary").forEach((summary) => {
+        list.querySelectorAll("summary").forEach((summary, subIndex) => {
             summary.addEventListener("click", (e) => {
                 e.preventDefault();
-                goToMainStep(mainIndex);
+
+                if (mainIndex === activeIndex) {
+                    startProgressAnimation(mainIndex, subIndex);
+                }
+                // // SCENARIO B: User clicks a sub-item in a DIFFERENT tab
+                // else {
+                //     // Switch to that tab first
+                //     goToMainStep(mainIndex);
+                //     // (Optional) If you want it to jump straight to that sub-item 
+                //     // in the NEW tab, you would need to pass subIndex to goToMainStep.
+                //     // For now, standard behavior is starting the new tab from 0.
+                // }
             });
         });
     });

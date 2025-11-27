@@ -22,7 +22,6 @@ function stepAnimation() {
     ];
 
     if (!wrap) {
-        console.error('Elemen .step_layout tidak ditemukan.');
         return;
     }
 
@@ -30,7 +29,6 @@ function stepAnimation() {
     const images = wrap.querySelectorAll('.step_image');
 
     if (steps.length === 0 || images.length === 0) {
-        console.warn('Steps atau images tidak ditemukan di dalam .step_layout.');
         return;
     }
 
@@ -199,7 +197,6 @@ function bennefitAnimation() {
     const items = document.querySelectorAll('.benefit_item_wrap');
 
     if (items.length === 0) {
-        console.warn('Benefit items tidak ditemukan.');
         return;
     }
 
@@ -249,7 +246,6 @@ function bennefitAnimation() {
 function imageStackAnimation() {
     const items = document.querySelectorAll('.client_image');
     if (items.length === 0) {
-        console.warn('Client images tidak ditemukan.');
         return;
     }
 
@@ -325,7 +321,6 @@ function followingCursor() {
     const cursorTag = document.querySelector('[data-cursor="following"]');
 
     if (!cursorTag) {
-        console.error('Elemen #cursor-tag tidak ditemukan. Pastikan sudah ada di HTML Anda.');
         return;
     }
 

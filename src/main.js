@@ -5,6 +5,7 @@ import initHomePage from "./pages/home";
 import initializeSwiper from "./utils/swiper.js";
 import initHomePageV2 from "./pages/home-v2.js";
 import initUnifieldAnimation from "./pages/unifield.js"
+import initBlog from "./pages/blog.js";
 
 // --- Utils ---
 import { loadRiveAnimation } from "./utils/rive.js";
@@ -62,6 +63,7 @@ function initAnimation() {
 	footerAnimation();
 	initializeSwiper();
 	initHomePageV2();
+	initBlog();
 	initUnifieldAnimation();
 }
 
