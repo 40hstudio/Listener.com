@@ -5,10 +5,11 @@ function podcastSwiper() {
         slidesPerView: 1,
         spaceBetween: 16,
         // loop: true,
-        // pagination: {
-        //     el: '.swiper-pagination',
-        //     clickable: true,
-        // },
+        pagination: {
+            el: '.built_pagination',
+            clickable: true,
+        },
+
         navigation: {
             nextEl: '.swiper-button.next',
             prevEl: '.swiper-button.prev',
@@ -24,6 +25,7 @@ function podcastSwiper() {
             1024: {
                 slidesPerView: "auto",
                 spaceBetween: 24,
+                pagination: false,
             },
         },
     });
@@ -33,15 +35,34 @@ function caseSwiper() {
     const navItems = document.querySelectorAll(".case_list .case_toc_item");
 
     const swiper = new Swiper(".case_swiper.swiper", {
-        slidesPerView: 1.001,
-        spaceBetween: 16,
+        slidesPerView: 1.25,
+        spaceBetween: 12,
         loop: true,
-        on: {
-            init: function () {
-                if (navItems[0]) navItems[0].classList.add("is-active");
+
+        pagination: {
+            el: '.case_pagination',
+            clickable: true,
+        },
+
+        breakpoints: {
+            992: {
+                slidesPerView: 1,
+                spaceBetween: 0,
+                pagination: false,
+                centeredSlides: true,
+
+
+                on: {
+                    init: function () {
+                        if (navItems[0]) navItems[0].classList.add("is-active");
+                    }
+                }
             }
-        }
+        },
+
+
     });
+
 
     const updateActiveState = (index) => {
         navItems.forEach(el => el.classList.remove("is-active"));

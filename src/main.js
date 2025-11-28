@@ -8,7 +8,7 @@ import initUnifieldAnimation from "./pages/unifield.js"
 import initBlog from "./pages/blog.js";
 
 // --- Utils ---
-import { loadRiveAnimation } from "./utils/rive.js";
+import initRiveAnimation from "./utils/rive.js";
 
 let lenis = new Lenis({
 	lerp: 0.1,
@@ -59,12 +59,14 @@ function footerAnimation() {
 
 function initAnimation() {
 	initHomePage();
-	loadRiveAnimation();
 	footerAnimation();
-	initializeSwiper();
 	initHomePageV2();
 	initBlog();
 	initUnifieldAnimation();
+
+	// Utils
+	initializeSwiper();
+	initRiveAnimation();
 }
 
 document.addEventListener('DOMContentLoaded', initAnimation);

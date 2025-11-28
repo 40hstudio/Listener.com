@@ -1,7 +1,7 @@
 import gsap from "gsap";
 
 function unifieldItems() {
-    const section = document.querySelector('.matrics_wrap');
+    const section = document.querySelector('.metrics_wrap');
 
     if (!section) {
         return;
@@ -63,8 +63,20 @@ function unifieldItems() {
         const nextList = bottomLists[index];
         activeIndex = index;
 
-        gsap.to(topSteps, { opacity: 0.4, duration: 0.3 });
-        gsap.to(topSteps[index], { opacity: 1, duration: 0.3 });
+        gsap.to(topSteps, {
+            opacity: 0.4,
+            duration: 0.3,
+            onStart: () => {
+                topSteps.forEach(el => el.classList.remove("is-active"));
+            }
+        });
+
+        gsap.to(topSteps[index], {
+            opacity: 1,
+            duration: 0.3,
+            overwrite: true,
+            onStart: () => topSteps[index].classList.add("is-active")
+        });
 
         gsap.to(images, { opacity: 0, zIndex: 1, duration: 0.5 });
         gsap.to(images[index], { opacity: 1, zIndex: 2, duration: 0.5 });
