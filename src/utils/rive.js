@@ -61,7 +61,7 @@ function loadRiveAnimation() {
     });
 }
 
-function unifiedRive() {
+async function unifiedRive() {
     const RIVEURL = "https://cdn.prod.website-files.com/691688333ba7c006297bb49f/6929b4e11f4c08bbd2a405bf_6b35522baf07457b4da4d1cfe1db61b6_listener_homepage_all.riv";
     const sm = "State Machine 1";
 
@@ -72,56 +72,59 @@ function unifiedRive() {
         { artboard: "smart-integrations", selector: "[data-rive='smart-integrations']" },
     ];
 
-    // if (window.innerWidth < 991) {
-    //     return;
-    // }
-    targets.forEach((item) => {
-        console.log(item[2]);
+    if (typeof Rive === 'undefined') {
+        console.error("Rive library belum dimuat.");
+        return;
+    }
 
-        const visual = document.querySelector(item.selector);
+    try {
+        const req = new Request(RIVEURL);
+        const loadRive = fetch(req).then((res) => res.arrayBuffer());
+        const riveBuffer = await loadRive;
 
-        if (!visual) return;
+        targets.forEach((item) => {
+            const visual = document.querySelector(item.selector);
+            if (!visual) return;
 
-        const r = new Rive({
-            src: RIVEURL,
-            canvas: visual,
-            stateMachines: sm,
-            artboard: item.artboard,
-            autoplay: true,
-            isTouchScrollEnabled: true,
-            onLoad: () => {
-                r.resizeDrawingSurfaceToCanvas();
-                const inputs = r.stateMachineInputs(sm);
-                const playTrigger = inputs.find((i) => i.name === "play");
+            const r = new Rive({
+                buffer: riveBuffer,
+                canvas: visual,
+                stateMachines: sm,
+                artboard: item.artboard,
+                autoplay: false,
+                isTouchScrollEnabled: true,
+                onLoad: () => {
+                    r.resizeDrawingSurfaceToCanvas();
 
-                const triggerElement = visual.parentElement;
+                    const inputs = r.stateMachineInputs(sm);
+                    const playTrigger = inputs.find((i) => i.name === "play");
 
-                if (!triggerElement) {
-                    console.error("Rive canvas tidak memiliki parent element untuk ScrollTrigger.");
-                    return;
-                }
+                    ScrollTrigger.create({
+                        trigger: visual,
+                        start: "top 85%",
+                        end: "bottom top",
 
-                if (playTrigger) {
-                    playTrigger.fire();
-                }
+                        onEnter: () => {
+                            r.play();
+                            if (playTrigger) playTrigger.fire();
+                        },
 
-                ScrollTrigger.create({
-                    trigger: visual,
-                    start: "top 60%",
-                    once: true,
-                    onEnter: () => {
-                        if (playTrigger) {
-                            playTrigger.fire();
-                        }
-                    },
-                    // markers: true,
-                });
-            },
-            onLoadError: (err) => {
-                console.error("Rive loading error:", err);
-            },
+                        onLeave: () => r.pause(),
+
+                        onEnterBack: () => r.play(),
+
+                        onLeaveBack: () => r.pause(),
+                    });
+                },
+                onLoadError: (err) => {
+                    console.error(`Error loading artboard ${item.artboard}:`, err);
+                },
+            });
         });
-    });
+
+    } catch (error) {
+        console.error("Gagal mendownload file Rive:", error);
+    }
 }
 
 export default function initRiveAnimation() {

@@ -118,7 +118,7 @@ function circlePathAnimation() {
         ScrollTrigger.create({
             trigger: item,
             start: "top 80%",
-            toggleActions: "play none none reverse",
+            once: true,
             animation: tl
         })
     });
