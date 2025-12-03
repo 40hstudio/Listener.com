@@ -62,7 +62,7 @@ function loadRiveAnimation() {
 }
 
 async function unifiedRive() {
-    const RIVEURL = "https://cdn.prod.website-files.com/691688333ba7c006297bb49f/6929b4e11f4c08bbd2a405bf_6b35522baf07457b4da4d1cfe1db61b6_listener_homepage_all.riv";
+    const RIVEURL = "https://cdn.prod.website-files.com/691688333ba7c006297bb49f/692fdefbab7f8726775c4d2a_axi_listener_animation_full_final.riv";
     const sm = "State Machine 1";
 
     const targets = [
@@ -70,10 +70,11 @@ async function unifiedRive() {
         { artboard: "cluster_reports_mobile", selector: "[data-rive='cluster-reports-mobile']" },
         { artboard: "listener-data", selector: "[data-rive='listener-data']" },
         { artboard: "smart-integrations", selector: "[data-rive='smart-integrations']" },
+        { artboard: "cta_glow_blue", selector: "[data-rive='future-purple']" },
     ];
 
     if (typeof Rive === 'undefined') {
-        console.error("Rive library belum dimuat.");
+        console.error("rive library not found.");
         return;
     }
 
