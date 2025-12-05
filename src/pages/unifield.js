@@ -10,11 +10,12 @@ function unifieldItems() {
     const barDuration = 3;
     const slideSpeed = 0.4;
 
-
     const topSteps = document.querySelectorAll(".matrics_item_wrap");
     const bottomLists = document.querySelectorAll(".metrics_bottom_list");
     const images = document.querySelectorAll(".metrics_image");
     const progressBars = document.querySelectorAll(".matrics_item_progress");
+    // 1. SELECTOR BARU: Mengambil konten tengah
+    const middleContents = document.querySelectorAll(".metrics_content");
 
     let activeIndex = 0;
     let activeTimeline = null;
@@ -34,13 +35,8 @@ function unifieldItems() {
     });
 
     gsap.set(images, {
+        xPercent: 100,
         opacity: 0,
-        // zIndex: 1,
-        // position: "absolute",
-        // top: 0,
-        // left: 0,
-        // width: "100%",
-        // height: "100%",
         pointerEvents: "none"
     });
 
@@ -52,6 +48,13 @@ function unifieldItems() {
         y: 20
     });
 
+    // 2. INITIAL STATE: Sembunyikan semua konten tengah dan geser sedikit ke bawah
+    gsap.set(middleContents, {
+        display: "none",
+        opacity: 0,
+        y: 10
+    });
+
     gsap.set("details.metrics_item summary", { cursor: "pointer" });
 
 
@@ -61,6 +64,10 @@ function unifieldItems() {
 
         const prevList = bottomLists[activeIndex];
         const nextList = bottomLists[index];
+
+        const prevContent = middleContents[activeIndex];
+        const nextContent = middleContents[index];
+
         activeIndex = index;
 
         gsap.to(topSteps, {
@@ -78,8 +85,8 @@ function unifieldItems() {
             onStart: () => topSteps[index].classList.add("is-active")
         });
 
-        gsap.to(images, { opacity: 0, zIndex: 1, duration: 0.5 });
-        gsap.to(images[index], { opacity: 1, zIndex: 2, duration: 0.5 });
+        gsap.to(images, { opacity: 0, xPercent: 100, zIndex: 1, duration: 0.5 });
+        gsap.to(images[index], { opacity: 1, xPercent: 0, zIndex: 2, duration: 0.5 });
 
         if (activeTimeline) activeTimeline.kill();
         gsap.set(progressBars, { width: 0 });
@@ -99,10 +106,23 @@ function unifieldItems() {
                     gsap.set(prevList, { display: "none" });
                 }
             });
+
+            if (prevContent) {
+                transitionTl.to(prevContent, {
+                    y: -10,
+                    opacity: 0,
+                    duration: slideSpeed,
+                    ease: "power2.in",
+                    onComplete: () => {
+                        gsap.set(prevContent, { display: "none" });
+                    }
+                }, "<");
+            }
         }
 
         transitionTl.add(() => {
             gsap.set(nextList, { display: "flex", y: 20, opacity: 0 });
+            gsap.set(nextContent, { display: "flex", y: 10, opacity: 0 });
         });
 
         transitionTl.to(nextList, {
@@ -111,6 +131,13 @@ function unifieldItems() {
             duration: slideSpeed,
             ease: "power2.out"
         });
+
+        transitionTl.to(nextContent, {
+            y: 0,
+            opacity: 1,
+            duration: slideSpeed,
+            ease: "power2.out"
+        }, "<");
     }
 
     function startProgressAnimation(index, startIndex = 0) {
@@ -161,22 +188,16 @@ function unifieldItems() {
                 if (mainIndex === activeIndex) {
                     startProgressAnimation(mainIndex, subIndex);
                 }
-                // // SCENARIO B: User clicks a sub-item in a DIFFERENT tab
-                // else {
-                //     // Switch to that tab first
-                //     goToMainStep(mainIndex);
-                //     // (Optional) If you want it to jump straight to that sub-item 
-                //     // in the NEW tab, you would need to pass subIndex to goToMainStep.
-                //     // For now, standard behavior is starting the new tab from 0.
-                // }
             });
         });
     });
 
     gsap.set(bottomLists[0], { display: "flex", opacity: 1, y: 0 });
+    if (middleContents.length > 0) {
+        gsap.set(middleContents[0], { display: "flex", opacity: 1, y: 0 });
+    }
 
     goToMainStep(0);
-
 };
 
 export default function initUnifieldAnimation() {
