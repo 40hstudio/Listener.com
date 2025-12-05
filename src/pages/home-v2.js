@@ -11,10 +11,29 @@ function detailsOpen() {
     const summaries = wrapper.querySelectorAll("summary");
     const images = wrapper.querySelectorAll(".unified_right .u-image");
 
-    summaries.forEach((summary) => {
+    let activeIndex = 0;
+    let autoPlayTimer;
+    const intervalTime = 10000;
+
+    const startTimer = () => {
+        clearInterval(autoPlayTimer);
+        if (window.innerWidth > 768) {
+            autoPlayTimer = setInterval(() => {
+                activeIndex = (activeIndex + 1) % details.length;
+                summaries[activeIndex].click();
+            }, intervalTime);
+        }
+    };
+
+    summaries.forEach((summary, index) => {
         summary.addEventListener("click", (e) => {
             const isDesktop = window.innerWidth > 768;
             const parentDetail = summary.parentElement;
+
+            if (isDesktop) {
+                activeIndex = index;
+                startTimer();
+            }
 
             if (isDesktop) {
                 if (!parentDetail.hasAttribute("open")) {
@@ -37,6 +56,7 @@ function detailsOpen() {
             details.forEach((detail, index) => {
                 if (detail.hasAttribute("open")) {
                     gsap.set(images[index], { xPercent: 0, zIndex: 2 });
+                    activeIndex = index;
                 } else {
                     gsap.set(images[index], { xPercent: 101, zIndex: 1 });
                 }
@@ -68,6 +88,8 @@ function detailsOpen() {
 
     if (window.innerWidth <= 768) {
         details.forEach(el => el.setAttribute("open", ""));
+    } else {
+        startTimer();
     }
 }
 
