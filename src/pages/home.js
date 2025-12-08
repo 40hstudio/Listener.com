@@ -221,9 +221,9 @@ function bennefitAnimation() {
             // markers: true,
         });
 
-        if (window.innerHeight < 991) {
-            return;
-        }
+        // if (window.innerHeight < 991) {
+        //     return;
+        // }
 
         const tl_icon = gsap.timeline({ paused: true });
 
