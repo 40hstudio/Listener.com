@@ -33,54 +33,54 @@ function podcastSwiper() {
 
 function caseSwiper() {
     const navItems = document.querySelectorAll(".case_list .case_toc_item");
+    const sliderElement = document.querySelector(".case_swiper.swiper");
 
-    const swiper = new Swiper(".case_swiper.swiper", {
-        slidesPerView: 1.25,
+    if (!navItems.length || !sliderElement) return;
+
+    const swiper = new Swiper(sliderElement, {
+        slidesPerView: 1,
         spaceBetween: 12,
         loop: true,
-
+        init: false,
         pagination: {
             el: '.case_pagination',
             clickable: true,
         },
-
         breakpoints: {
             992: {
                 slidesPerView: 1,
                 spaceBetween: 0,
                 pagination: false,
                 centeredSlides: true,
-
-
-                on: {
-                    init: function () {
-                        if (navItems[0]) navItems[0].classList.add("is-active");
-                    }
-                }
             }
         },
-
-
     });
-
 
     const updateActiveState = (index) => {
         navItems.forEach(el => el.classList.remove("is-active"));
+
         if (navItems[index]) {
             navItems[index].classList.add("is-active");
         }
     };
 
-    swiper.on("slideChange", () => {
+    swiper.on("init", () => {
+        updateActiveState(swiper.realIndex);
+    });
+
+    swiper.on("slideChangeTransitionStart", () => {
         updateActiveState(swiper.realIndex);
     });
 
     navItems.forEach((item, index) => {
         item.style.cursor = "pointer";
-        item.addEventListener("click", () => {
+        item.addEventListener("click", (e) => {
+            e.preventDefault();
             swiper.slideToLoop(index);
         });
     });
+
+    swiper.init();
 }
 
 
