@@ -1,7 +1,10 @@
 // libs
 import Lenis from "lenis";
 import Swiper from "swiper";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+// --- Pages ---
 import initHomePage from "./pages/home";
 import initializeSwiper from "./utils/swiper.js";
 import initHomePageV2 from "./pages/home-v2.js";
@@ -10,6 +13,8 @@ import initBlog from "./pages/blog.js";
 
 // --- Utils ---
 import initRiveAnimation from "./utils/rive.js";
+
+gsap.registerPlugin(ScrollTrigger);
 
 let lenis = new Lenis({
 	lerp: 0.1,
@@ -81,9 +86,53 @@ function clientSwiper() {
 	}
 }
 
+function handleNavTheme() {
+	const nav = document.querySelector('.nav_component');
+	const darkSections = gsap.utils.toArray('section.u-theme-dark, .footer-main_wrap, .future_card');
+
+	if (!nav || darkSections.length === 0) return;
+
+	let activeDarkSections = 0;
+
+	const updateNav = () => {
+		if (activeDarkSections > 0) {
+			nav.classList.add('is-light');
+		} else {
+			nav.classList.remove('is-light');
+		}
+	};
+
+	darkSections.forEach(section => {
+		ScrollTrigger.create({
+			trigger: section,
+			start: "top top",
+			end: "bottom top",
+
+			onEnter: () => {
+				activeDarkSections++;
+				updateNav();
+			},
+			onEnterBack: () => {
+				activeDarkSections++;
+				updateNav();
+			},
+
+			onLeave: () => {
+				activeDarkSections--;
+				updateNav();
+			},
+			onLeaveBack: () => {
+				activeDarkSections--;
+				updateNav();
+			}
+		});
+	});
+}
+
 function initAnimation() {
 	clientSwiper();
 	footerAnimation();
+	handleNavTheme();
 
 	// Pages
 	initHomePage();
