@@ -14,7 +14,6 @@ function unifieldItems() {
     const bottomLists = document.querySelectorAll(".metrics_bottom_list");
     const images = document.querySelectorAll(".metrics_image");
     const progressBars = document.querySelectorAll(".matrics_item_progress");
-    // 1. SELECTOR BARU: Mengambil konten tengah
     const middleContents = document.querySelectorAll(".metrics_content");
 
     let activeIndex = 0;
@@ -48,7 +47,6 @@ function unifieldItems() {
         y: 20
     });
 
-    // 2. INITIAL STATE: Sembunyikan semua konten tengah dan geser sedikit ke bawah
     gsap.set(middleContents, {
         display: "none",
         opacity: 0,

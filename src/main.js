@@ -1,5 +1,6 @@
 // libs
 import Lenis from "lenis";
+import Swiper from "swiper";
 
 import initHomePage from "./pages/home";
 import initializeSwiper from "./utils/swiper.js";
@@ -57,9 +58,35 @@ function footerAnimation() {
 	});
 }
 
+let clientInstance = null;
+
+function clientSwiper() {
+	const swiperEl = document.querySelector(".client_image_wrap");
+
+	if (!swiperEl) return;
+
+	const isTablet = window.innerWidth <= 767;
+
+	if (isTablet && !clientInstance) {
+		clientInstance = new Swiper(swiperEl, {
+			slideClass: "client_image",
+			slidesPerView: 2.5,
+			spaceBetween: 24,
+			centeredSlides: true,
+			loop: true,
+		});
+	} else if (!isTablet && clientInstance) {
+		clientInstance.destroy(true, true);
+		clientInstance = null;
+	}
+}
+
 function initAnimation() {
-	initHomePage();
+	clientSwiper();
 	footerAnimation();
+
+	// Pages
+	initHomePage();
 	initHomePageV2();
 	initBlog();
 	initUnifieldAnimation();

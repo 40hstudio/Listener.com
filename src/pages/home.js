@@ -249,44 +249,47 @@ function imageStackAnimation() {
         return;
     }
 
-    gsap.set(items, { opacity: 0, scale: 0.8 });
+    if (window.matchMedia("(min-width: 767px)").matches) {
+        gsap.set(items, { opacity: 0, scale: 0.8 });
 
-    const tl = gsap.to(items, {
-        opacity: 1,
-        scale: 1,
-        ease: 'power2.out',
-        stagger: 0.1,
-        onComplete: () => {
-            gsap.set(items, { clearProps: 'all' });
+        const tl = gsap.to(items, {
+            opacity: 1,
+            scale: 1,
+            ease: 'power2.out',
+            stagger: 0.1,
+            onComplete: () => {
+                gsap.set(items, { clearProps: 'all' });
 
-            items.forEach(item => {
-                item.addEventListener('mouseenter', () => {
-                    gsap.to(item, {
-                        scale: 1.2,
-                        duration: 0.3,
-                        ease: 'power2.out',
+                items.forEach(item => {
+                    item.addEventListener('mouseenter', () => {
+                        gsap.to(item, {
+                            scale: 1.2,
+                            duration: 0.3,
+                            ease: 'power2.out',
+                        });
+                    });
+
+                    item.addEventListener('mouseleave', () => {
+                        gsap.to(item, {
+                            scale: 1,
+                            duration: 0.3,
+                            ease: 'power2.out',
+                        });
                     });
                 });
+            }
+        });
 
-                item.addEventListener('mouseleave', () => {
-                    gsap.to(item, {
-                        scale: 1,
-                        duration: 0.3,
-                        ease: 'power2.out',
-                    });
-                });
-            });
-        }
-    });
+        ScrollTrigger.create({
+            trigger: ".client_image",
+            start: 'top 80%',
+            end: 'bottom 20%',
+            once: true,
+            animation: tl,
+            // markers: true,
+        });
+    }
 
-    ScrollTrigger.create({
-        trigger: ".client_image",
-        start: 'top 80%',
-        end: 'bottom 20%',
-        once: true,
-        animation: tl,
-        // markers: true,
-    });
 }
 
 function countAnimation() {
