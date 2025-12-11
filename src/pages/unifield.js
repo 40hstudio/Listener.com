@@ -88,7 +88,7 @@ function unifieldItems() {
 
         if (activeTimeline) activeTimeline.kill();
         gsap.set(progressBars, { width: 0 });
-        document.querySelectorAll("details").forEach(d => d.removeAttribute("open"));
+        document.querySelectorAll("details.metrics_item").forEach(d => d.removeAttribute("open"));
 
         const transitionTl = gsap.timeline({
             onComplete: () => startProgressAnimation(index)
