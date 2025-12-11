@@ -76,7 +76,7 @@ function clientSwiper() {
 		clientInstance = new Swiper(swiperEl, {
 			slideClass: "client_image",
 			slidesPerView: 2.5,
-			spaceBetween: 24,
+			spaceBetween: 8,
 			centeredSlides: true,
 			loop: true,
 		});
