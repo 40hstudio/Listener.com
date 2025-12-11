@@ -62,7 +62,7 @@ function loadRiveAnimation() {
 }
 
 async function unifiedRive() {
-    const RIVEURL = "https://cdn.prod.website-files.com/691688333ba7c006297bb49f/692fdefbab7f8726775c4d2a_axi_listener_animation_full_final.riv";
+    const RIVEURL = "https://cdn.prod.website-files.com/691688333ba7c006297bb49f/692fdefbab7f8726775c4d2a_e7f75c2d23e62ee406d8d2c2a598ffdf_axi_listener_animation_full_final.riv";
     const sm = "State Machine 1";
 
     const targets = [
